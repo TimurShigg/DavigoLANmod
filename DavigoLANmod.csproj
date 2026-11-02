@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <AssemblyName>DavigoTrueLan</AssemblyName>
-    <RootNamespace>DavigoTrueLan</RootNamespace>
-    <Version>1.0.1</Version>
+    <AssemblyName>DavigoLANmod</AssemblyName>
+    <RootNamespace>DavigoLANmod</RootNamespace>
+    <Version>1.1.0</Version>
     <DavigoDir Condition="'$(DavigoDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Davigo</DavigoDir>
   </PropertyGroup>
 

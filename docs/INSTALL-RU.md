@@ -3,7 +3,7 @@
 ## VR-хост
 
 1. Полностью закройте DAVIGO.
-2. Распакуйте `DAVIGO-True-LAN-VR-HostPack-v1.0.1.zip`.
+2. Распакуйте `Davigo-LAN-mod-VR-HostPack-v1.1.0.zip`.
 3. Запустите `1-Install-VR-Host.bat`.
 4. Если Steam-библиотека находится не в стандартной папке, укажите папку платной игры `Davigo`, а не `DavigoKnightPass`.
 5. При запросе Брандмауэра Windows разрешите `Davigo.exe` доступ в частных сетях.
@@ -13,7 +13,7 @@
 ## Игрок Knight Pass
 
 1. Полностью закройте Knight Pass.
-2. Распакуйте `DAVIGO-True-LAN-KnightPack-v1.0.1.zip`.
+2. Распакуйте `Davigo-LAN-mod-KnightPack-v1.1.0.zip`.
 3. Запустите `1-Install-KnightPass.bat`.
 4. Запустите `2-Mode-LAN.bat`.
 5. При запросе Брандмауэра Windows разрешите `Davigo.exe` доступ в частных сетях.

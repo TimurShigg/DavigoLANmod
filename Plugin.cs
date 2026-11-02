@@ -15,14 +15,14 @@ using Il2CppInterop.Runtime.InteropTypes;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppInterop.Runtime.Runtime;
 
-namespace DavigoTrueLan;
+namespace DavigoLANmod;
 
 [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
 public sealed class Plugin : BasePlugin
 {
-    public const string PluginGuid = "dev.codex.davigo.truelan";
-    public const string PluginName = "DAVIGO True LAN";
-    public const string PluginVersion = "1.0.1";
+    public const string PluginGuid = "dev.codex.davigo.lanmod";
+    public const string PluginName = "Davigo LAN mod";
+    public const string PluginVersion = "1.1.0";
 
     internal static ManualLogSource ModLog { get; private set; } = null!;
     internal static ConfigEntry<bool> Enabled { get; private set; } = null!;
@@ -238,7 +238,7 @@ internal static class LanBootstrap
 
         if (!NativeFusionPatch.EnableStandaloneSocketPath())
         {
-            const string message = "DAVIGO LAN: this game binary does not match the supported 0.5.2A-1493 build.";
+            const string message = "Davigo LAN mod: direct networking could not be enabled for this game executable. See BepInEx/LogOutput.log.";
             Plugin.ModLog.LogError(message);
             AppLog.Alert(message);
             return;
@@ -262,7 +262,7 @@ internal static class LanBootstrap
         Plugin.ModLog.LogInfo($"LAN client requested via {source} for {endpoint.Value.Address}:{endpoint.Value.Port}, role {role}. Photon bypassed.");
         if (!NativeFusionPatch.EnableStandaloneSocketPath())
         {
-            const string message = "DAVIGO LAN: this game binary does not match the supported 0.5.2A-1493 build.";
+            const string message = "Davigo LAN mod: direct networking could not be enabled for this game executable. See BepInEx/LogOutput.log.";
             Plugin.ModLog.LogError(message);
             AppLog.Alert(message);
             return false;
@@ -343,7 +343,7 @@ internal static class NetworkRunnerInitializePatch
 
 internal static class Il2CppRawInitializeArgs
 {
-    // Layout from DAVIGO 0.5.2A-1493 IL2CPP metadata:
+    // Layout from the IL2CPP metadata used when this patch was implemented:
     // Nullable<NetAddress> is 0x20 bytes (0x18-byte value + HasValue),
     // Nullable<int/SimulationModes> is 0x08 bytes (4-byte value + HasValue).
     internal static unsafe void SetAddress(NetworkRunnerInitializeArgs args, int fieldOffset, NetAddress value)
@@ -594,7 +594,7 @@ internal static class NetworkRunnerInitializationDonePatch
         {
             LanState.ClientConnectIssued = true;
             var address = NetAddress.CreateFromIpPort(host, LanState.Port);
-            var token = new Il2CppStructArray<byte>(Encoding.ASCII.GetBytes("DAVIGO_TRUE_LAN"));
+            var token = new Il2CppStructArray<byte>(Encoding.ASCII.GetBytes("DAVIGO_LAN_MOD"));
             var uniqueId = new Il2CppStructArray<byte>(Guid.NewGuid().ToByteArray());
             __instance.Connect(address, token, uniqueId);
             Plugin.ModLog.LogInfo($"Direct Connect issued to {host}:{LanState.Port}.");
@@ -623,7 +623,7 @@ internal static class NetworkRunnerConnectionRequestPatch
 
         var token = __args.Length > 1 ? __args[1] as Il2CppStructArray<byte> : null;
         var isLanToken = token is not null &&
-                         Encoding.ASCII.GetString(token.ToArray()).StartsWith("DAVIGO_TRUE_LAN", StringComparison.Ordinal);
+                         Encoding.ASCII.GetString(token.ToArray()).StartsWith("DAVIGO_LAN_MOD", StringComparison.Ordinal);
         if (isLanToken)
         {
             __result = true;
@@ -797,7 +797,7 @@ internal static class LanRoleAssignment
 
 internal static class LanDiscovery
 {
-    private const string Magic = "DAVIGO_TRUE_LAN_V1";
+    private const string Magic = "DAVIGO_LAN_MOD_V1";
     private static readonly object Sync = new();
     private static CancellationTokenSource? listenerCancellation;
     private static CancellationTokenSource? beaconCancellation;
@@ -855,13 +855,13 @@ internal static class LanDiscovery
                 var result = await client.ReceiveAsync(cancellationToken).ConfigureAwait(false);
                 var message = Encoding.UTF8.GetString(result.Buffer);
                 var parts = message.Split('|');
-                if (parts.Length < 3 || parts[0] != Magic || parts[1] != "0.5.2A-1493" || !ushort.TryParse(parts[2], out var gamePort))
+                if (parts.Length < 2 || parts[0] != Magic || !ushort.TryParse(parts[1], out var gamePort))
                 {
                     continue;
                 }
 
-                var address = parts.Length >= 4 &&
-                              IPAddress.TryParse(parts[3], out var advertisedAddress) &&
+                var address = parts.Length >= 3 &&
+                              IPAddress.TryParse(parts[2], out var advertisedAddress) &&
                               advertisedAddress.AddressFamily == AddressFamily.InterNetwork
                     ? advertisedAddress.ToString()
                     : result.RemoteEndPoint.Address.ToString();
@@ -894,7 +894,7 @@ internal static class LanDiscovery
             using var client = new UdpClient(AddressFamily.InterNetwork) { EnableBroadcast = true };
             var endpoint = new IPEndPoint(IPAddress.Broadcast, discoveryPort);
             var safeName = displayName.Replace('|', ' ');
-            var payload = Encoding.UTF8.GetBytes($"{Magic}|0.5.2A-1493|{gamePort}|{hostAddress}|{safeName}");
+            var payload = Encoding.UTF8.GetBytes($"{Magic}|{gamePort}|{hostAddress}|{safeName}");
 
             while (!cancellationToken.IsCancellationRequested)
             {
