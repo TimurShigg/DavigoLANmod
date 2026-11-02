@@ -1,0 +1,14 @@
+bin/
+obj/
+.vs/
+.idea/
+*.user
+*.suo
+*.log
+
+# DAVIGO/BepInEx binaries are local build dependencies and are not committed.
+BepInEx/
+interop/
+GameAssembly.dll
+Davigo.exe
+

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>DavigoTrueLan</AssemblyName>
+    <RootNamespace>DavigoTrueLan</RootNamespace>
+    <Version>1.0.1</Version>
+    <DavigoDir Condition="'$(DavigoDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Davigo</DavigoDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx.Core" HintPath="$(DavigoDir)\BepInEx\core\BepInEx.Core.dll" Private="false" />
+    <Reference Include="BepInEx.Unity.IL2CPP" HintPath="$(DavigoDir)\BepInEx\core\BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(DavigoDir)\BepInEx\core\0Harmony.dll" Private="false" />
+    <Reference Include="Il2CppInterop.Runtime" HintPath="$(DavigoDir)\BepInEx\core\Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="Il2Cppmscorlib" HintPath="$(DavigoDir)\BepInEx\interop\Il2Cppmscorlib.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(DavigoDir)\BepInEx\interop\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="Assembly-CSharp" HintPath="$(DavigoDir)\BepInEx\interop\Assembly-CSharp.dll" Private="false" />
+    <Reference Include="Fusion.Runtime" HintPath="$(DavigoDir)\BepInEx\interop\Fusion.Runtime.dll" Private="false" />
+    <Reference Include="Fusion.Sockets" HintPath="$(DavigoDir)\BepInEx\interop\Fusion.Sockets.dll" Private="false" />
+  </ItemGroup>
+</Project>
