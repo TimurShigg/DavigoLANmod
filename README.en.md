@@ -24,6 +24,15 @@ Close the game, fully extract the archive, and run `1-Install-VR-Host.bat` or `1
 
 The detailed installation, troubleshooting, Porthole, and build guides are currently available in Russian under [`docs`](docs/).
 
+## Returning to normal online play
+
+To use the standard DAVIGO online servers again, fully close the game and uninstall the mod:
+
+- on the VR host, run `2-Uninstall-VR-Host.bat` from the Host Pack;
+- on a Knight Pass PC, run `Uninstall-KnightPass.bat` from the Knight Pack.
+
+`2-Mode-LAN.bat` and `2-Mode-Porthole.bat` only switch between direct connection modes; they do not restore DAVIGO's normal online mode.
+
 ## Playing on a physical LAN
 
 1. The VR host launches the paid DAVIGO copy and creates a network room.

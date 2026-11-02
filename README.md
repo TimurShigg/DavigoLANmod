@@ -24,6 +24,15 @@
 
 Подробности: [установка и игра по LAN](docs/INSTALL-RU.md), [Porthole](docs/PORTHOLE-RU.md), [устранение неполадок](docs/TROUBLESHOOTING-RU.md).
 
+## Возврат к обычной сетевой игре
+
+Чтобы снова играть через стандартные онлайн-серверы DAVIGO, полностью закройте игру и удалите мод:
+
+- на VR-хосте запустите `2-Uninstall-VR-Host.bat` из Host Pack;
+- на компьютере с Knight Pass запустите `Uninstall-KnightPass.bat` из Knight Pack.
+
+`2-Mode-LAN.bat` и `2-Mode-Porthole.bat` только переключают тип прямого соединения и не возвращают обычный сетевой режим DAVIGO.
+
 ## Игра через Porthole
 
 ### Хост с VR
